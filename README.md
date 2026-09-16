@@ -14,8 +14,8 @@ For a screencast with an example application, please visit: [http://corrupt.net/
 
 Prerequisites
 -------------
- * devise ~> 3.0.0 (which requires rails ~> 4.0)
- * net-ldap ~> 0.6.0
+ * devise ~> 5.0.0 (which requires rails ~> 8.0)
+ * net-ldap ~> 0.20.0
 
 Note: Rails 3.x / Devise 2.x has been moved to the 0.7 branch.  All 0.7.x gems will support Rails 3, where as 0.8.x will support Rails 4.
 

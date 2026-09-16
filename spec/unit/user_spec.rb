@@ -28,7 +28,7 @@ describe 'Users' do
 
     describe "create a basic user" do
       before do
-        @user = Factory.create(:user)
+        @user = create(:user)
       end
 
       it "should check for password validation" do
@@ -41,7 +41,7 @@ describe 'Users' do
 
     describe "change a LDAP password" do
       before do
-        @user = Factory.create(:user)
+        @user = create(:user)
       end
 
       it "should change password" do
@@ -96,7 +96,7 @@ describe 'Users' do
 
         it "should create a user in the database if case insensitivity does not matter" do
           ::Devise.case_insensitive_keys = []
-          @user = Factory.create(:user)
+          @user = create(:user)
 
           expect do
             User.find_for_ldap_authentication(:email => "EXAMPLE.user@test.com", :password => "secret")
@@ -105,7 +105,7 @@ describe 'Users' do
 
         it "should not create a user in the database if case insensitivity matters" do
           ::Devise.case_insensitive_keys = [:email]
-          @user = Factory.create(:user)
+          @user = create(:user)
 
           expect do
             User.find_for_ldap_authentication(:email => "EXAMPLE.user@test.com", :password => "secret")
@@ -124,8 +124,8 @@ describe 'Users' do
 
     describe "use groups for authorization" do
       before do
-        @admin = Factory.create(:admin)
-        @user = Factory.create(:user)
+        @admin = create(:admin)
+        @user = create(:user)
         ::Devise.authentication_keys = [:email]
         ::Devise.ldap_check_group_membership = true
       end
@@ -145,8 +145,8 @@ describe 'Users' do
 
     describe "check group membership" do
       before do
-        @admin = Factory.create(:admin)
-        @user = Factory.create(:user)
+        @admin = create(:admin)
+        @user = create(:user)
       end
 
       it "should return true for admin being in the admins group" do
@@ -172,7 +172,7 @@ describe 'Users' do
 
     describe "check group membership w/out admin bind" do
       before do
-        @user = Factory.create(:user)
+        @user = create(:user)
         ::Devise.ldap_check_group_membership_without_admin = true
       end
 
@@ -203,8 +203,8 @@ describe 'Users' do
 
     describe "use role attribute for authorization" do
       before do
-        @admin = Factory.create(:admin)
-        @user = Factory.create(:user)
+        @admin = create(:admin)
+        @user = create(:user)
         ::Devise.ldap_check_attributes = true
       end
 
@@ -219,8 +219,8 @@ describe 'Users' do
 
     describe "use attribute presence for authorization" do
       before do
-        @admin = Factory.create(:admin)
-        @user = Factory.create(:user)
+        @admin = create(:admin)
+        @user = create(:user)
         ::Devise.ldap_check_attributes_presence = true
       end
 
@@ -239,8 +239,8 @@ describe 'Users' do
 
     describe "use admin setting to bind" do
       before do
-        @admin = Factory.create(:admin)
-        @user = Factory.create(:user)
+        @admin = create(:admin)
+        @user = create(:user)
         ::Devise.ldap_use_admin_to_bind = true
       end
 
@@ -274,8 +274,8 @@ describe 'Users' do
 
     describe "description" do
       before do
-        @admin = Factory.create(:admin)
-        @user = Factory.create(:user, :uid => "example_user")
+        @admin = create(:admin)
+        @user = create(:user, :uid => "example_user")
       end
 
       it "should be able to authenticate using uid" do
@@ -309,7 +309,7 @@ describe 'Users' do
       end
 
       it "should not call ldap_before_save hook if not defined" do
-        should_be_validated Factory.create(:user, :uid => "example_user"), "secret"
+        should_be_validated create(:user, :uid => "example_user"), "secret"
       end
     end
   end
@@ -323,8 +323,8 @@ describe 'Users' do
 
     describe "authenticate" do
       before do
-        @admin = Factory.create(:admin)
-        @user = Factory.create(:user)
+        @admin = create(:admin)
+        @user = create(:user)
       end
 
       it "should be able to authenticate" do
@@ -353,7 +353,7 @@ describe 'Users' do
       ::Devise.ldap_auth_username_builder = Proc.new() do |attribute, login, ldap|
         "#{attribute}=#{login},ou=others,dc=test,dc=com"
       end
-      @other = Factory.create(:other)
+      @other = create(:other)
     end
 
     it "should be able to authenticate" do

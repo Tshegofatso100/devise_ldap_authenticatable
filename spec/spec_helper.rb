@@ -2,7 +2,7 @@ ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("rails_app/config/environment.rb",  File.dirname(__FILE__))
 require 'rspec/rails'
-require 'factory_girl' # not sure why this is not already required
+require 'factory_bot' # not sure why this is not already required
 
 # Rails 4.1 and RSpec are a bit on different pages on who should run migrations
 # on the test db and when.
@@ -18,6 +18,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
+  config.include FactoryBot::Syntax::Methods
 end
 
 def ldap_root
@@ -28,7 +29,8 @@ def ldap_connect_string
   if ENV["LDAP_SSL"]
     "-x -H ldaps://localhost:3389 -D 'cn=admin,dc=test,dc=com' -w secret"
   else
-    "-x -h localhost -p 3389 -D 'cn=admin,dc=test,dc=com' -w secret"
+    # "-x -h localhost -p 3389 -D 'cn=admin,dc=test,dc=com' -w secret"
+    "-x -H ldap://localhost:3389 -D 'cn=admin,dc=test,dc=com' -w secret"
   end
 end
 

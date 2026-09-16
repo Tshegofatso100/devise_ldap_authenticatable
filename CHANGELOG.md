@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v0.9
+----
+add support for devise 5.0 and rails 8.0
+
 v0.8
 ----
 
